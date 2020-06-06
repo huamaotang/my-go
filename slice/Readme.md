@@ -1,5 +1,16 @@
-#Go中Slice底层实现
-[toc]
+<!-- TOC -->
+
+- [Go中Slice底层实现](#go中slice底层实现)
+    - [key point](#key-point)
+    - [切片和数组（怎么选择）](#切片和数组怎么选择)
+    - [切片的数据结构](#切片的数据结构)
+    - [创建切片](#创建切片)
+    - [切片扩容](#切片扩容)
+    - [切片拷贝](#切片拷贝)
+
+<!-- /TOC -->
+# Go中Slice底层实现
+
 
 ## key point
 - 切片是Go中的一种数据结构
@@ -13,21 +24,21 @@
 - 切片可以更好的处理共享内存的问题，指针地址与数组指针不是同一个
 
 ```
-	func printArray(arr [4]int) {
-		fmt.Printf("arr: %p %v\n", &arr, arr)
-	}
+func printArray(arr [4]int) {
+	fmt.Printf("arr: %p %v\n", &arr, arr)
+}
 	
-	func TestArray(t *testing.T) {
-		arrA := [4]int{1, 2, 3, 4}
-		var arrB [4]int
+func TestArray(t *testing.T) {
+	arrA := [4]int{1, 2, 3, 4}
+	var arrB [4]int
 	
-		arrB = arrA
+	arrB = arrA
 	
-		fmt.Printf("arrA: %p %v\n", &arrA, arrA)
-		fmt.Printf("arrB: %p %v\n", &arrB, arrB)
+	fmt.Printf("arrA: %p %v\n", &arrA, arrA)
+	fmt.Printf("arrB: %p %v\n", &arrB, arrB)
 	
-		printArray(arrA)
-	}
+	printArray(arrA)
+}
 ```
 
 打印结果：
@@ -48,21 +59,21 @@ arr: 0xc0000ac0a0 [1 2 3 4]
 - 对数组连续片段的引用，由起始和终止索引标识的一些子集，终止索引标识的项不包括在切片里
 
 ```
-	type slice struct {
-		array unsafe.Pointer
-		len   int
-		cap   int
-	}
+type slice struct {
+	array unsafe.Pointer
+	len   int
+	cap   int
+}
 ```
 
 ## 创建切片
 - make和切片字面量
 
 ```
-	s := make([]int, 2, 3)
-	sA := []int{1, 2}
+s := make([]int, 2, 3)
+sA := []int{1, 2}
 
-	fmt.Printf("s: %#v, len: %d, cap: %d  \nsA:%#v, len: %d, cap: %d \n", s, len(s), cap(s), sA, len(sA), cap(sA))
+fmt.Printf("s: %#v, len: %d, cap: %d  \nsA:%#v, len: %d, cap: %d \n", s, len(s), cap(s), sA, len(sA), cap(sA))
 ```
 打印结果：
 
@@ -78,10 +89,10 @@ sA:[]int{1, 2}, len: 2, cap: 2
 	- 对于append的结果，nil和空切片变量无区别
 
 ```
-	var s []int
-    sA := make([]int, 0)
-    fmt.Println(s == nil, sA == nil)
-    fmt.Printf("s: %#v, ptr: %p, len: %d, cap: %d  \nsA:%#v, ptr: %p, len: %d, cap: %d \n", s, &s, len(s), cap(s), sA, &sA, len(sA), cap(sA))
+var s []int
+sA := make([]int, 0)
+fmt.Println(s == nil, sA == nil)
+fmt.Printf("s: %#v, ptr: %p, len: %d, cap: %d  \nsA:%#v, ptr: %p, len: %d, cap: %d \n", s, &s, len(s), cap(s), sA, &sA, len(sA), cap(sA))
 ```
 
 打印结果
@@ -98,11 +109,11 @@ sA:[]int{}, ptr: 0xc0000920a0, len: 0, cap: 0
 	- 判断切片的长度是否超过1024，超过呈1/4数组增长
 
 ```
-	var s = make([]int, 0, 2)
-	for i := 0; i < 16; i++ {
-		s = append(s, 1)
-		fmt.Printf("times: %d, ptr: %p\n", i+1, s)
-	}
+var s = make([]int, 0, 2)
+for i := 0; i < 16; i++ {
+	s = append(s, 1)
+	fmt.Printf("times: %d, ptr: %p\n", i+1, s)
+}
 ```
 	
 打印结果：
@@ -130,10 +141,10 @@ times: 16, ptr: 0xc0000ce000
 	- 共有的底层数组被引用的某一个切片更改，导致所有引用该数组的切片都被更改
 
 ```
-	s := []int{1, 2, 3, 4}
-	sA := s[:1:2]
-	sA = append(sA, 1)
-	fmt.Printf("s:%v, %p, sA:%v, %p\n", s, s, sA, sA)
+s := []int{1, 2, 3, 4}
+sA := s[:1:2]
+sA = append(sA, 1)
+fmt.Printf("s:%v, %p, sA:%v, %p\n", s, s, sA, sA)
 
 ```
 打印结果：
@@ -148,15 +159,15 @@ s:[1 1 3 4], 0xc0000a4040, sA:[1 1], 0xc0000a4040
 
 
 ```
-	to := []int{1, 2, 3, 4}
-	fm := make([]int, 6)
-	n := copy(to, fm)
-	fmt.Println(to, fm, n)
+to := []int{1, 2, 3, 4}
+fm := make([]int, 6)
+n := copy(to, fm)
+fmt.Println(to, fm, n)
 	
-	toA := make([]byte, 3)
-	fmA := "abcd"
-	n = copy(toA, fmA)
-	fmt.Println(toA, fmA, n)
+toA := make([]byte, 3)
+fmA := "abcd"
+n = copy(toA, fmA)
+fmt.Println(toA, fmA, n)
 
 ```
 
@@ -171,10 +182,10 @@ s:[1 1 3 4], 0xc0000a4040, sA:[1 1], 0xc0000a4040
 - **for**一个切片，v为值拷贝，且第一次声明变量，后续仅进行值拷贝
 
 ```
-	s := []int{1, 2, 3}
-	for k, v := range s {
-		fmt.Printf("v: %d, %p s:%p\n", v, &v, &s[k])
-	}
+s := []int{1, 2, 3}
+for k, v := range s {
+	fmt.Printf("v: %d, %p s:%p\n", v, &v, &s[k])
+}
 
 ```
 
