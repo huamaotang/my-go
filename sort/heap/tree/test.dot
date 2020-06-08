@@ -1,0 +1,8 @@
+graph test {
+    node [shape=circle];
+
+    1 -- 2, 3;
+    2 -- 4, 5[color=red,penwidth=3.0];
+    3 -- 6, 7[color=red,penwidth=3.0];
+    4 -- 8;
+}

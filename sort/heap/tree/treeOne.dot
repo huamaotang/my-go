@@ -1,0 +1,17 @@
+digraph binaryTree{
+    node[shape=circle,color=red,fontcolor=white,fontsize=12, style="filled", fillcolor="#00AEAE"];
+        // root[style="filled", color="black", fillcolor="red"];
+
+        root->a;
+        root->b;
+
+        a->c;
+        a->m1[weight=10 style="invis"];
+        a->d;
+
+        b->e;
+        b->m2[weight=10 style="invis"];
+        b->f;
+
+        m1, m2[style="invis"]
+}

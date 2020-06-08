@@ -1,0 +1,18 @@
+graph bin_tree {
+    node [shape=circle];
+
+    1 -- 2, 3;
+
+    2 -- 4;
+    2 -- m2 [weight=10 style="invis"];
+    2 -- 5;
+
+    3 -- 6;
+    3 -- m3 [weight=10 style="invis"];
+    3 -- 7;
+
+    4 -- 8;
+
+    // style="dashed",
+    m2, m3 [label="", style="invis"]
+}
