@@ -15,8 +15,8 @@ func TestSort(t *testing.T) {
 		arr[k] = rand.Intn(100)
 	}
 	fmt.Println(arr)
-	//shellSort(arr)
-	fmt.Println(mergeSort(arr))
+	quickSort(arr, 0, len(arr)-1)
+	fmt.Println(arr)
 }
 
 func radixSort(arr []int) {
@@ -82,6 +82,28 @@ func bucketSort(arr []int, size int) {
 			key++
 		}
 	}
+}
+
+func quickSort(arr []int, start, end int) {
+	if start >= end {
+		return
+	}
+	pivot := partition(arr, start, end)
+	quickSort(arr, start, pivot-1)
+	quickSort(arr, pivot+1, end)
+}
+
+func partition(arr []int, start, end int) int {
+	pivotV := arr[start]
+	j := start
+	for i := start + 1; i <= end; i++ {
+		if arr[i] < pivotV {
+			arr[j+1], arr[i] = arr[i], arr[j+1]
+			j++
+		}
+	}
+	arr[start], arr[j] = arr[j], arr[start]
+	return j
 }
 
 func mergeSort(arr []int) []int {
