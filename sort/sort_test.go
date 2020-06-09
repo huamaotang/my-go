@@ -15,7 +15,7 @@ func TestSort(t *testing.T) {
 		arr[k] = rand.Intn(100)
 	}
 	fmt.Println(arr)
-	quickSort(arr, 0, len(arr)-1)
+	countingSort(arr)
 	fmt.Println(arr)
 }
 
@@ -82,6 +82,56 @@ func bucketSort(arr []int, size int) {
 			key++
 		}
 	}
+}
+
+func countingSort(arr []int) {
+	var maxV int
+	for _, v := range arr {
+		if v > maxV {
+			maxV = v
+		}
+	}
+	res := make([]int, maxV+1)
+	for _, v := range arr {
+		res[v]++
+	}
+	var newK int
+	for k, v := range res {
+		if v < 1 {
+			continue
+		}
+		for i := 0; i < v; i++ {
+			arr[newK] = k
+			newK++
+		}
+	}
+}
+
+func heapSort(arr []int) {
+	for i := len(arr)/2 - 1; i >= 0; i-- {
+		maxHeap(arr, i, len(arr))
+	}
+	for i := 0; i < len(arr)-1; i++ {
+		lastIndex := len(arr)-1-i
+		arr[0], arr[lastIndex] = arr[lastIndex], arr[0]
+		maxHeap(arr, 0, lastIndex)
+	}
+}
+
+func maxHeap(arr []int, i, len int) {
+	nodeV := arr[i]
+	for j := 2*i + 1; j < len; j = 2*j +1{
+		if j + 1 < len && arr[j+1]>arr[j]{
+			j++
+		}
+		if arr[j] > nodeV {
+			arr[i] = arr[j]
+			i = j
+		} else {
+			break
+		}
+	}
+	arr[i] = nodeV
 }
 
 func quickSort(arr []int, start, end int) {
