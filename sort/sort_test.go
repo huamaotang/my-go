@@ -112,7 +112,7 @@ func heapSort(arr []int) {
 		maxHeap(arr, i, len(arr))
 	}
 	for i := 0; i < len(arr)-1; i++ {
-		lastIndex := len(arr)-1-i
+		lastIndex := len(arr) - 1 - i
 		arr[0], arr[lastIndex] = arr[lastIndex], arr[0]
 		maxHeap(arr, 0, lastIndex)
 	}
@@ -120,8 +120,8 @@ func heapSort(arr []int) {
 
 func maxHeap(arr []int, i, len int) {
 	nodeV := arr[i]
-	for j := 2*i + 1; j < len; j = 2*j +1{
-		if j + 1 < len && arr[j+1]>arr[j]{
+	for j := 2*i + 1; j < len; j = 2*j + 1 {
+		if j+1 < len && arr[j+1] > arr[j] {
 			j++
 		}
 		if arr[j] > nodeV {
@@ -203,7 +203,7 @@ func shellSort(arr []int) {
 	}
 }
 
-func InsertSort(arr []int) {
+func insertSort(arr []int) {
 	var j int
 	for i := 1; i < len(arr); i++ {
 		tmp := arr[i]
@@ -214,7 +214,7 @@ func InsertSort(arr []int) {
 	}
 }
 
-func SelectSort(arr []int) {
+func selectSort(arr []int) {
 	for i := 0; i < len(arr)-1; i++ {
 		min := i
 		for j := i + 1; j < len(arr); j++ {
