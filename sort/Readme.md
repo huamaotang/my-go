@@ -178,7 +178,11 @@ func merge(left []int, right []int) []int {
 ## quick sort
 
 ### 算法描述
-- a
+- 假定第一个值索引为中心点pivot，依次与之后的每个元素进行比较，如果中心点之后的元素大于中心值，则不做元素交换
+- 否则，交换中心点之后的第一个元素和当前正在比较的元素（有可能两个元素在相同的位置，比如[5 4 3 2 1]）；另起一个变量，从中心点开始，每交换一次加1，直到没有元素了；吐出这个每次加1的变量，也就是中心点
+- 将序列按照中心点分成两个序列，对这两个序列（排除掉中心点元素）分别进行分区，不断进行这个操作
+- 需要交换的元素越来越少，直到最后
+
 
 ### 动图演示
 ![排序分类](https://raw.githubusercontent.com/huamaotang/my-images/master/quick-sort.gif)
@@ -190,7 +194,9 @@ func quickSort(arr []int, start, end int) {
 	if start >= end {
 		return
 	}
+	fmt.Printf("start: %d, end: %d, arr: %v \n", start, end, arr)
 	pivot := partition(arr, start, end)
+	fmt.Printf("arr: %v, mid: %d\n", arr, pivot)
 	quickSort(arr, start, pivot-1)
 	quickSort(arr, pivot+1, end)
 }
@@ -209,4 +215,201 @@ func partition(arr []int, start, end int) int {
 }
 ```
 
+打印结果（假定arr := []int{4, 5, 6, 1, 2, 3}）：
 
+```
+start: 0, end: 5, arr: [4 5 6 1 2 3] 
+arr: [3 1 2 4 6 5], mid: 3
+start: 0, end: 2, arr: [3 1 2 4 6 5] 
+arr: [2 1 3 4 6 5], mid: 2
+start: 0, end: 1, arr: [2 1 3 4 6 5] 
+arr: [1 2 3 4 6 5], mid: 1
+start: 4, end: 5, arr: [1 2 3 4 6 5] 
+arr: [1 2 3 4 5 6], mid: 5
+```
+
+## heap sort
+
+### 算法描述
+- 写一个依据非叶子节点，将其调整成该非叶子节点下是大顶堆
+	- 比较节点的左右叶子节点大小，记下更大的
+	- 更大的叶子节点与节点比较，如果节点更大，则这小段树枝（即一个节点和最多2个子节点）无需做调整，因为叶子节点以下子节点已经是大顶堆了
+	- 如果节点更小，则把叶子节点值赋给节点，并且把叶子节点位置赋给节点
+	- 循环下一个叶子节点，重复2~3操作
+	- 将节点值赋给新的节点
+	- 大顶堆就造好了
+- 从最后一个非叶子节点（len(arr)/2 -1）开始造大顶堆
+- 交换第一个和最后一个元素，最后一个就是最大的元素
+- 对还没确定大小的元素再次进行大顶堆构建（交换之后，只有堆顶是需要调整的，其它的节点已经符合大顶堆的结构）
+- 重复3~4步骤	
+
+
+### 动图演示
+![排序分类](https://raw.githubusercontent.com/huamaotang/my-images/master/heap-sort.gif)
+
+### 代码实现
+
+```
+func heapSort(arr []int) {
+	for i := len(arr)/2 - 1; i >= 0; i-- {
+		maxHeap(arr, i, len(arr))
+	}
+	for i := 0; i < len(arr)-1; i++ {
+		lastIndex := len(arr) - 1 - i
+		arr[0], arr[lastIndex] = arr[lastIndex], arr[0]
+		maxHeap(arr, 0, lastIndex)
+	}
+}
+
+func maxHeap(arr []int, i, len int) {
+	nodeV := arr[i]
+	for j := 2*i + 1; j < len; j = 2*j + 1 {
+		if j+1 < len && arr[j+1] > arr[j] {
+			j++
+		}
+		if arr[j] > nodeV {
+			arr[i] = arr[j]
+			i = j
+		} else {
+			break
+		}
+	}
+	arr[i] = nodeV
+}
+```
+
+## counting sort
+
+### 算法描述
+- 找出序列中最大值maxV
+- 创建maxV长度的切片，把元素放入切片的key中，并不断的累加1
+- 最后，将切片循环出来，得到有序序列
+
+
+### 动图演示
+![排序分类](https://raw.githubusercontent.com/huamaotang/my-images/master/counting-sort.gif)
+
+### 代码实现
+
+```
+func countingSort(arr []int) {
+	var maxV int
+	for _, v := range arr {
+		if v > maxV {
+			maxV = v
+		}
+	}
+	res := make([]int, maxV+1)
+	for _, v := range arr {
+		res[v]++
+	}
+	var newK int
+	for k, v := range res {
+		if v < 1 {
+			continue
+		}
+		for i := 0; i < v; i++ {
+			arr[newK] = k
+			newK++
+		}
+	}
+}
+```
+
+## bucket sort
+
+### 算法描述
+- 定义桶大小size，计算出序列中最大值max，最小值min
+- 创建一个二维序列，长度为(max-min)/size+1
+- 把元素按照(v-min)/size作为key，放入桶中
+- 循环出二维序列，把桶中元素进行冒泡排序，依次写入原序列中
+
+
+### 动图演示
+![排序分类](https://raw.githubusercontent.com/huamaotang/my-images/master/bucket-sort.gif)
+
+### 代码实现
+
+```
+func bucketSort(arr []int, size int) {
+	var min, max int
+	for _, v := range arr {
+		if v > max {
+			max = v
+		}
+		if v < min {
+			min = v
+		}
+	}
+
+	var bucketArr = make([][]int, (max-min)/size+1)
+	for _, v := range arr {
+		bucketNo := (v - min) / size
+		bucketArr[bucketNo] = append(bucketArr[bucketNo], v)
+	}
+
+	var key int
+	for _, bucketV := range bucketArr {
+		bubbleSort(bucketV)
+		for _, v := range bucketV {
+			arr[key] = v
+			key++
+		}
+	}
+}
+```
+
+## radix sort
+
+### 算法描述
+- 计算出最大值max，最大的位数（除以10，看能除几次）
+- 按照位数循环（先个位，再十位，再百位，再千位），创建一个二维序列，长度为10（十进制，最多0-9）
+- 按照每位的值依次存入新的序列中
+- 从0开始，依次把元素取出来，重新存入原序列
+- 重复2~4，直到最后位，序列已经有序了
+
+
+### 动图演示
+![排序分类](https://raw.githubusercontent.com/huamaotang/my-images/master/radix-sort.gif)
+
+### 代码实现
+
+```
+func radixSort(arr []int) {
+	length := len(arr)
+	if length < 2 {
+		return
+	}
+	var max int
+	for _, v := range arr {
+		if v > max {
+			max = v
+		}
+	}
+	var maxDigit int
+	for max > 0 {
+		max /= 10
+		maxDigit++
+	}
+	var divisor = 1
+	for i := 0; i < maxDigit; i++ {
+		bucket := make([][]int, 10)
+		for _, v := range arr {
+			digit := (v / divisor) % 10
+			bucket[digit] = append(bucket[digit], v)
+		}
+
+		newK := 0
+		for j := 0; j < 10; j++ {
+			if len(bucket[j]) == 0 {
+				continue
+			}
+			for _, v := range bucket[j] {
+				arr[newK] = v
+				newK++
+			}
+		}
+		divisor *= 10
+	}
+}
+```

@@ -6,7 +6,7 @@ import (
 )
 
 func TestQuick(t *testing.T) {
-	arr := []int{5, 4, 3, 2, 1}
+	arr := []int{4, 5, 6, 1, 2, 3}
 	quickSort(arr, 0, len(arr)-1)
 	t.Log(arr)
 }
@@ -25,9 +25,9 @@ func quickSort(arr []int, start, end int) {
 	if start >= end {
 		return
 	}
+	fmt.Printf("start: %d, end: %d, arr: %v \n", start, end, arr)
 	mid := partition(arr, start, end)
-	fmt.Println(arr, mid)
-	return
+	fmt.Printf("arr: %v, mid: %d\n", arr, mid)
 	quickSort(arr, start, mid-1)
 	quickSort(arr, mid+1, end)
 }
