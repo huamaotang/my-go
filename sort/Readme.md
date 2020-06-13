@@ -376,7 +376,7 @@ func countingSort(arr []int) {
 
 
 ### 动图演示
-![排序分类](https://raw.githubusercontent.com/huamaotang/my-images/master/bucket-sort.gif)
+![排序分类](https://raw.githubusercontent.com/huamaotang/my-images/master/bucket-sort.png)
 
 ### 代码实现
 
@@ -464,5 +464,5 @@ func radixSort(arr []int) {
 }
 ```
 
-![Reference1](https://www.cnblogs.com/onepixel/articles/7674659.html)
-![Reference2](https://www.runoob.com/w3cnote/ten-sorting-algorithm.html)
+[Reference1](https://www.cnblogs.com/onepixel/articles/7674659.html)
+[Reference2](https://www.runoob.com/w3cnote/ten-sorting-algorithm.html)
