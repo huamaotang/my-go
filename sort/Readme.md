@@ -464,5 +464,5 @@ func radixSort(arr []int) {
 }
 ```
 
-[Reference1](https://www.cnblogs.com/onepixel/articles/7674659.html)
-[Reference2](https://www.runoob.com/w3cnote/ten-sorting-algorithm.html)
+[Reference1](https://www.cnblogs.com/onepixel/articles/7674659.html){:target="_blank"}
+[Reference2](https://www.runoob.com/w3cnote/ten-sorting-algorithm.html){:target="_blank"}
