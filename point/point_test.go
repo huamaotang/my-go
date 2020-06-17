@@ -1,6 +1,9 @@
 package point
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func Test1(t *testing.T) {
 	type T struct {
@@ -14,4 +17,15 @@ func Test1(t *testing.T) {
 		m[k] = &v
 	}
 	t.Log(m, n)
+}
+
+func Test2(t *testing.T) {
+	for i := 0; i < 10; i++ {
+		j := i
+		f2(&j)
+	}
+}
+
+func f2(x *int) {
+	fmt.Println(x)
 }
