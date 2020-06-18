@@ -70,6 +70,11 @@ var goodPrice float64 = “666.66”
 ### 36个预定义标识符
 <table>
 	<tr>
+		<td></td>
+	</tr>
+</table>
+<table>
+	<tr>
 		<td>int</td><td> int8 </td><td> int32 </td><td> int64 </td><td>float32</td><td>float64</td>
 	</tr>
 	<tr>
@@ -87,4 +92,5 @@ var goodPrice float64 = “666.66”
 		<td>print</td><td>println</td><td>real</td><td>close</td><td> byte </td><td> nil </td>
 	</tr>
 </table>
-				
+			
+[Reference](https://blog.csdn.net/Fe_cow/article/details/103842774?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1.nonecase)				
