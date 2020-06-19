@@ -67,29 +67,31 @@ var goodPrice float64 = “666.66”
 	</tr>
 </table>
 
-### 36个预定义标识符
+### 37个预定义标识符
 <table>
 	<tr>
-		<td></td>
-	</tr>
-</table>
-<table>
-	<tr>
-		<td>int</td><td> int8 </td><td> int32 </td><td> int64 </td><td>float32</td><td>float64</td>
+		<td>内建常量</td><td>true</td><td>false</td><td>iota</td><td>nil</td><td></td>
 	</tr>
 	<tr>
-		<td>uint</td><td>uint8 </td><td> uint32 </td> <td> uint64 </td><td> uintptr</td><td> uint16 </td>
+		<td rowspan=4>内建类型</td><td>int8</td><td>uint8</td><td>byte</td><td>int16</td><td>uint16</td>
 	</tr>
 	<tr>
-		<td>complex</td><td>complex64</td><td>complex128</td><td>imag</td><td></td><td>string</td>	</tr>
-	<tr>
-		<td>append</td><td>cap</td><td>make</td><td>len</td><td>new</td><td>panic</td>
+		<td> int32 </td><td>uint32</td><td>rune</td><td>int64</td><td>uint64</td>
 	</tr>
 	<tr>
-		<td>recover</td><td>iota</td><td> copy </td><td> bool </td><td>false</td><td>true</td>
+		<td>int</td><td>uint</td><td>complex</td><td>complex64</td><td>complex128</td>
 	</tr>
 	<tr>
-		<td>print</td><td>println</td><td>real</td><td>close</td><td> byte </td><td> nil </td>
+		<td>float32</td><td>float64</td><td>bool</td><td>string</td><td>error</td>
+	</tr>
+	<tr>
+		<td rowspan="3">内建函数</td><td>make</td><td>append</td><td>new</td><td>len</td><td>cap</td>
+	</tr>
+	<tr>
+		<td>delete</td><td>close</td><td>panic</td><td>recover</td><td>real</td>
+	</tr>
+	<tr>
+		<td>copy</td><td>complex</td><td>real</td><td></td><td></td>
 	</tr>
 </table>
 			
