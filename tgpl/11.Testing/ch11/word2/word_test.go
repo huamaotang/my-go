@@ -1,11 +1,12 @@
 // Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
 // License: https://creativecommons.org/licenses/by-nc-sa/4.0/
 
-package word
+package word_test
 
 import (
 	"fmt"
 	"math/rand"
+	word "my-go/tgpl/11.Testing/ch11/word2"
 	"time"
 )
 
@@ -36,20 +37,18 @@ func TestIsPalindrome(t *testing.T) {
 		{"desserts", false},   // semi-palindrome
 	}
 	for _, test := range tests {
-		if got := IsPalindrome(test.input); got != test.want {
+		if got := word.IsPalindrome(test.input); got != test.want {
 			t.Errorf("IsPalindrome(%q) = %v", test.input, got)
 		}
 	}
 }
-
-
 
 //!-test
 
 //!+bench
 func BenchmarkIsPalindrome(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		IsPalindrome("A man, a plan, a canal: Panama")
+		word.IsPalindrome("A man, a plan, a canal: Panama")
 	}
 }
 
@@ -58,8 +57,8 @@ func BenchmarkIsPalindrome(b *testing.B) {
 //!+example
 
 func ExampleIsPalindrome() {
-	fmt.Println(IsPalindrome("A man, a plan, a canal: Panama"))
-	fmt.Println(IsPalindrome("palindrome"))
+	fmt.Println(word.IsPalindrome("A man, a plan, a canal: Panama"))
+	fmt.Println(word.IsPalindrome("palindrome"))
 	// Output:
 	// true
 	// false
@@ -96,7 +95,7 @@ func TestRandomPalindromes(t *testing.T) {
 
 	for i := 0; i < 1000; i++ {
 		p := randomPalindrome(rng)
-		if !IsPalindrome(p) {
+		if !word.IsPalindrome(p) {
 			t.Errorf("IsPalindrome(%q) = false", p)
 		}
 	}
