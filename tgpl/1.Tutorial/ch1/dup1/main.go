@@ -11,19 +11,20 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"strings"
+	"os"
 )
 
 func main() {
 	counts := make(map[string]int)
-	input := bufio.NewScanner(strings.NewReader("aa\naa\nb\nb\nb\n"))
+	input := bufio.NewScanner(os.Stdin)
 	for input.Scan() {
 		counts[input.Text()]++
+		fmt.Println(input.Text())
 	}
 	// NOTE: ignoring potential errors from input.Err()
 	for line, n := range counts {
 		if n > 1 {
-			fmt.Printf("%d\t%s\n", n, line)
+			fmt.Printf("%d %s\n", n, line)
 		}
 	}
 }
