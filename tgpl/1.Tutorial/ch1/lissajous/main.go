@@ -28,7 +28,12 @@ import (
 
 //!+main
 
-var palette = []color.Color{color.White, color.Black}
+var palette = []color.Color{color.White, color.RGBA{
+	R: 0x59,
+	G: 0xb8,
+	B: 0x81,
+	A: 0xff,
+}}
 
 const (
 	whiteIndex = 0 // first color in palette
@@ -74,7 +79,7 @@ func lissajous(out io.Writer) {
 			x := math.Sin(t)
 			y := math.Sin(t*freq + phase)
 			img.SetColorIndex(size+int(x*size+0.5), size+int(y*size+0.5),
-				blackIndex)
+				1)
 		}
 		phase += 0.1
 		anim.Delay = append(anim.Delay, delay)
