@@ -23,6 +23,8 @@ func main() {
 		go fetch(url, ch) // start a goroutine
 	}
 	for range os.Args[1:] {
+		time.Sleep(2*time.Second)
+		fmt.Println("sleeping 2s")
 		fmt.Println(<-ch) // receive from channel ch
 	}
 	fmt.Printf("%.2fs elapsed\n", time.Since(start).Seconds())
