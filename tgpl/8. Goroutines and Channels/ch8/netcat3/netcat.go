@@ -7,27 +7,33 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net"
 	"os"
+	"time"
 )
 
 //!+
 func main() {
-	conn, err := net.Dial("tcp", "localhost:8080")
+	conn, err := net.Dial("tcp", "localhost:8000")
 	if err != nil {
 		log.Fatal(err)
 	}
 	done := make(chan struct{})
 	go func() {
-		io.Copy(os.Stdout, conn) // NOTE: ignoring errors
-		log.Println("done")
+		fmt.Println(44)
+		n, err := io.Copy(os.Stdout, conn) // NOTE: ignoring errors
+		fmt.Println(222)
+		log.Println("done", n, err)
 		done <- struct{}{} // signal the main goroutine
 	}()
-	mustCopy(conn, os.Stdin)
-	conn.Close()
+	defer conn.Close()
+	fmt.Println(333)
+	time.Sleep(1*time.Second)
 	<-done // wait for background goroutine to finish
+	mustCopy(conn, os.Stdin)
 }
 
 //!-
