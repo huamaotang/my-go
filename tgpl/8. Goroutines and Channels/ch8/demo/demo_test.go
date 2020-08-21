@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"testing"
+	"time"
 )
 
 func TestSelect(t *testing.T) {
@@ -80,4 +81,11 @@ func TestClose(t *testing.T) {
 func TestStdin(t *testing.T) {
 	x, err := os.Stdin.Read(make([]byte, 1))
 	fmt.Println(x, err)
+}
+
+func TestTime(t *testing.T) {
+	select {
+	case ch, ok := <- time.After(10 * time.Second):
+		fmt.Println(ch, ok)
+	}
 }
