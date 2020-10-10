@@ -8,15 +8,59 @@ import (
 )
 
 func TestSort(t *testing.T) {
-	rand.Seed(time.Now().UnixNano())
-
-	arr := make([]int, 30)
-	for k := range arr {
-		arr[k] = rand.Intn(100)
-	}
 	fmt.Println(arr)
 	countingSort(arr)
 	fmt.Println(arr)
+}
+
+var arr []int
+func init() {
+	rand.Seed(time.Now().UnixNano())
+	arr = make([]int, 30)
+	for k := range arr {
+		arr[k] = rand.Intn(100)
+	}
+}
+
+func TestTreeInsertSort(t *testing.T) {
+	fmt.Println(arr)
+	treeInsertSort(arr)
+}
+
+type tree struct {
+	value       int
+	left, right *tree
+}
+
+func treeInsertSort(arr []int) {
+	var t *tree
+	for _, v := range arr {
+		t = addTree(t, v)
+	}
+}
+
+func addTree(t *tree, value int) *tree {
+	if t == nil {
+		return &tree{
+			value: value,
+			left:  nil,
+			right: nil,
+		}
+	}
+	if value < t.value {
+		t.left = &tree{
+			value: value,
+			left:  nil,
+			right: nil,
+		}
+		return t
+	}
+	t.right = &tree{
+		value: value,
+		left:  nil,
+		right: nil,
+	}
+	return t
 }
 
 func radixSort(arr []int) {
