@@ -24,7 +24,7 @@ func init() {
 
 func TestTreeInsertSort(t *testing.T) {
 	fmt.Println(arr)
-	treeInsertSort(arr)
+	fmt.Println(treeInsertSort(arr))
 }
 
 type tree struct {
@@ -32,14 +32,24 @@ type tree struct {
 	left, right *tree
 }
 
-func treeInsertSort(arr []int) {
+func treeInsertSort(arr []int) []int {
 	var t *tree
 	for _, v := range arr {
-		t = addTree(t, v)
+		t = add(t, v)
 	}
+	return each(t, arr[:0])
 }
 
-func addTree(t *tree, value int) *tree {
+func each(t *tree, valueList []int) []int {
+	if t != nil {
+		valueList = each(t.left, valueList)
+		valueList = append(valueList, t.value)
+		valueList = each(t.right, valueList)
+	}
+	return valueList
+}
+
+func add(t *tree, value int) *tree {
 	if t == nil {
 		return &tree{
 			value: value,
@@ -48,17 +58,9 @@ func addTree(t *tree, value int) *tree {
 		}
 	}
 	if value < t.value {
-		t.left = &tree{
-			value: value,
-			left:  nil,
-			right: nil,
-		}
-		return t
-	}
-	t.right = &tree{
-		value: value,
-		left:  nil,
-		right: nil,
+		t.left = add(t.left, value)
+	} else {
+		t.right = add(t.right, value)
 	}
 	return t
 }
