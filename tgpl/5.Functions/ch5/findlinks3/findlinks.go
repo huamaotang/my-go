@@ -30,6 +30,7 @@ func breadthFirst(f func(item string) []string, worklist []string) {
 			}
 		}
 	}
+	os.mkdial
 }
 
 //!-breadthFirst

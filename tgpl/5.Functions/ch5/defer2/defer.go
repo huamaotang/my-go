@@ -20,7 +20,7 @@ func main() {
 
 func printStack() {
 	var buf [4096]byte
-	n := runtime.Stack(buf[:], false)
+	n := runtime.Stack(buf[:], true)
 	os.Stdout.Write(buf[:n])
 }
 

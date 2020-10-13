@@ -48,6 +48,7 @@ func topoSort(m map[string][]string) []string {
 
 	visitAll = func(items []string) {
 		for _, item := range items {
+			fmt.Printf("%v, %v\n", item, order)
 			if !seen[item] {
 				seen[item] = true
 				visitAll(m[item])
@@ -63,6 +64,7 @@ func topoSort(m map[string][]string) []string {
 
 	sort.Strings(keys)
 	visitAll(keys)
+	fmt.Printf( "%v \n%v \n",keys, order)
 	return order
 }
 

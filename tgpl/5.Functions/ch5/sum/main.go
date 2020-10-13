@@ -10,6 +10,7 @@ import "fmt"
 
 //!+
 func sum(vals ...int) int {
+	fmt.Printf("%T\n", vals)
 	total := 0
 	for _, val := range vals {
 		total += val
