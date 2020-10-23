@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 )
 func main() {
@@ -11,7 +12,15 @@ func main() {
 	//fmt.Println(bufScan())
 	//sayDemo()
 	//intSet()
-	Stringer()
+	//Stringer()
+	interfaceValue()
+}
+
+func interfaceValue() {
+	var w io.Writer
+	w = os.Stdout
+	x := io.Writer(os.Stdout)
+	fmt.Println(w, x)
 }
 
 func Stringer() {
