@@ -23,7 +23,7 @@ func main() {
 	fmt.Println("start")
 	db := database{"shoes": 50, "socks": 5}
 	mux := http.NewServeMux()
-	mux.Handle("/list", http.HandlerFunc(db.list))
+	mux.Handle("/list", http.HandlerFunc())
 	mux.Handle("/price", http.HandlerFunc(db.price))
 	log.Fatal(http.ListenAndServe("localhost:8000", mux))
 	fmt.Println("start")

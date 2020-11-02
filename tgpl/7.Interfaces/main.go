@@ -17,7 +17,32 @@ func main() {
 	//Stringer()
 	//interfaceUse()
 	//objCopyToInterface()
-	typeAssert()
+	Fprintf()
+}
+
+type B struct {
+	m string
+}
+
+func (b *B) Write(x []byte) (int, error) {
+	b.m = string(x)
+	return len(b.m), nil
+}
+
+
+func Fprintf() {
+	var w io.Writer
+	fmt.Printf("%#v\n", w)
+	w = &B{}
+	fmt.Fprintf(w, "%d-%s", 110, "sss")
+	fmt.Printf("%#v\n", w)
+
+}
+
+func pathError() {
+	err := errors.New("abc")
+	err = os.ErrNotExist
+	fmt.Println(os.IsNotExist(err))
 }
 
 func typeAssert() {
