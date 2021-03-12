@@ -6,6 +6,26 @@ import (
 	"unsafe"
 )
 
+func TestFor(t *testing.T) {
+	s := []int{1,2,3,4,5}
+	m := map[int]struct{}{}
+	for k, v := range s {
+		if _, ok := m[v]; ok {
+			continue
+		}
+		t.Log(k, v)
+		m[v] = struct{}{}
+		//s = append(s[:k], s[k + 1:]...)
+	}
+	for k, v := range s {
+		if _, ok := m[v]; ok {
+			continue
+		}
+		m[v] = struct{}{}
+		t.Log(k, v)
+	}
+}
+
 func TestValueCopy(t *testing.T) {
 	s := []int{1, 2, 3}
 	for k, v := range s {

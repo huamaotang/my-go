@@ -7,6 +7,12 @@ import (
 	"time"
 )
 
+func TestSince(t *testing.T) {
+	loc, _ := time.LoadLocation("Asia/Shanghai")
+	timeX, _ := time.ParseInLocation("20060102 15:04:05", "20210219 10:44:00", loc)
+	t.Log(int(time.Since(timeX).Seconds()))
+}
+
 func TestName(t *testing.T) {
 	fmt.Println(time.Now().Format("2006"))
 	fmt.Println(time.Now().AddDate(-1, 1, -2).Format("20060102"))
