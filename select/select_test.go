@@ -1,6 +1,7 @@
 package _select
 
 import (
+	"context"
 	"fmt"
 	"testing"
 	"time"
@@ -124,7 +125,7 @@ func TestSeven(t *testing.T) {
 	ch = make(chan int)
 
 	go func() {
-		time.Sleep(1 * time.Second)
+		time.Sleep(10 * time.Second)
 		ch <- 1
 	}()
 	// 添加超时时间
@@ -156,5 +157,27 @@ func TestEight(t *testing.T) {
 		fmt.Println("write ch1")
 	case <-time.After(1 * time.Second):
 		fmt.Println("no case ok")
+	}
+}
+
+func TestTen(t *testing.T) {
+	run(context.Background())
+}
+
+func run(ctx context.Context) {
+	ch := make(chan int)
+	go func() {
+		select {
+		case <-ctx.Done():
+			fmt.Println("ctx done")
+			return
+		}
+	}()
+
+	select {
+	case <- ch:
+		fmt.Println("all done")
+	case <- time.After(10*time.Second):
+		fmt.Println("over 10s")
 	}
 }

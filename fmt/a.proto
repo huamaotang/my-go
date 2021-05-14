@@ -1,0 +1,57 @@
+syntax = "proto3";
+option go_package = "github.com/example/path/gen;gen";
+
+package pbdata;
+
+message Log {
+  string protocol_version  = 1;
+  string log_id  = 2;
+  string session_id = 3;
+  int64 event_time = 4;
+  string client_ip = 5;
+  string element = 6;
+  string app = 7;
+  string page = 8;
+  string module = 9;
+  string action = 10;
+  string referer = 11;
+  string os = 12;
+  string device = 13;
+  string distinct_id = 14;
+  string tk = 15;
+  string mid = 16;
+  string uuid = 17;
+  string app_version = 18;
+  string os_version = 19;
+  string device_mode = 20;
+  string device_manu = 21;
+  int64 os_code = 22;
+  string device_brand = 23;
+  string screen_width = 24;
+  string screen_height = 25;
+  string device_carrier = 26;
+  string dtu = 27;
+  string network = 28;
+  string vest_name = 29;
+  string env = 30;
+  string lat = 31;
+  string lon = 32;
+  string app_subversion = 33;
+  string topic = 34;
+  int64 arrive_time = 36;
+  string event = 37;
+  string android_id = 38;
+  string tuid = 39;
+  string platform = 40;
+  string ref_module_id = 41;
+  string refer_event_id = 42;
+  string screen_size = 43;
+  string screen_resolution = 44;
+  string nm = 45;
+  string bundle_id = 46;
+  string device_uuid = 47;
+  string mp_system_info = 48;
+  string wx_open_id = 49;
+  string user_agent = 50;
+  map<string,string> extend_info = 35;
+}
