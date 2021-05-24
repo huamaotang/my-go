@@ -168,6 +168,8 @@ func run(ctx context.Context) {
 	ch := make(chan int)
 	go func() {
 		select {
+		case :
+
 		case <-ctx.Done():
 			fmt.Println("ctx done")
 			return
