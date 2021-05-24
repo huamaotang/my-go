@@ -1,0 +1,39 @@
+start.
+not upgrade.
+go serve.
+sig: 31
+sig: USR2
+sig: USR2, fork process ok
+serve fail, http: Server closed
+start.
+upgrade.
+go serve.
+sig: USR2, server shutdown ok
+sig: 31
+sig: USR2
+sig: USR2, fork process ok
+serve fail, http: Server closed
+start.
+upgrade.
+go serve.
+sig: USR2, server shutdown ok
+sig: 31
+sig: USR2
+sig: USR2, fork process ok
+serve fail, http: Server closed
+sig: USR2, server shutdown ok
+start.
+upgrade.
+go serve.
+start.
+not upgrade.
+go serve.
+sig: 31
+sig: USR2
+os.Args[0]: ./graceful
+sig: USR2, fork process ok
+serve fail, http: Server closed
+start.
+upgrade.
+go serve.
+sig: USR2, server shutdown ok
