@@ -37,3 +37,6 @@ start.
 upgrade.
 go serve.
 sig: USR2, server shutdown ok
+sig: 15
+serve fail, http: Server closed
+sig: term, server shutdown ok
