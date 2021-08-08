@@ -39,7 +39,18 @@ func get() (err error) {
 }
 
 func TestDeferErr(t *testing.T) {
-	t.Log(set())
-	t.Log(set1())
-	t.Log(get())
+	ForDefer()
+}
+
+func ForDefer() {
+	defer func() {
+		fmt.Println("defer end")
+	}()
+	for i := 0; i < 1 0; i++ {
+		defer func(i int) {
+			fmt.Println("for defer", i)
+		}(i)
+		fmt.Println(i)
+	}
+	return
 }

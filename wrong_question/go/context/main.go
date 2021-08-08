@@ -12,6 +12,7 @@ func main() {
 	ctx := context.Background()
 	ctx = context.WithValue(ctx, "a", 1)
 	ctx = context.WithValue(ctx, "b", 2)
+	ctx = context.WithValue(ctx, 1, 100)
 	fmt.Println(ctx.Value("a"))
 	ch := make(chan int)
 	go run(ctx, ch)
@@ -20,6 +21,7 @@ func main() {
 
 func run(ctx context.Context, ch chan int) {
 	fmt.Println("run", ctx.Value("b"))
+	fmt.Println("run", ctx.Value(1))
 	go run1(ctx, ch)
 }
 
