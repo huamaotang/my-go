@@ -46,7 +46,7 @@ func ForDefer() {
 	defer func() {
 		fmt.Println("defer end")
 	}()
-	for i := 0; i < 1 0; i++ {
+	for i := 0; i < 10; i++ {
 		defer func(i int) {
 			fmt.Println("for defer", i)
 		}(i)
